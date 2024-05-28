@@ -47,3 +47,33 @@ a new mounted volume in docker-compose.yml).
 
 XDebug is installed - to use it you will need to set up path mappings in your IDE to 
 point from the location of your local files to the /var folder of the container.
+
+To launch app after 
+`docker compose up -d`
+
+Use
+`docker compose exec webserver composer install`
+`docker compose exec webserver php artisan key:generate`
+`docker compose exec webserver php artisan migrate`
+
+Be sure, that .env is created 
+
+To check api endpoint make POST request to:
+
+`http://localhost:8008/api/subscription`
+
+Example:
+
+```
+curl --location 'http://localhost:8008/api/subscription' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "first_name":"John",
+    "last_name":"Doe",
+    "email":"John.Doe@gmail.com",
+    "type":"student"
+}'
+```
+
+You can find exported json config file for POSTMAN
+`SubscriptionRequest.postman_collection.json`

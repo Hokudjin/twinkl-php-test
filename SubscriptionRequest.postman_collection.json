@@ -1,0 +1,39 @@
+{
+	"info": {
+		"_postman_id": "9538dc26-93a6-4845-a8ac-b246c23eba09",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1109540"
+	},
+	"item": [
+		{
+			"name": "subscription",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\":\"John\",\n    \"last_name\":\"Doe\",\n    \"email\":\"John.Doe@gmail.com\",\n    \"type\":\"student\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8008/api/subscription",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8008",
+					"path": [
+						"api",
+						"subscription"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
