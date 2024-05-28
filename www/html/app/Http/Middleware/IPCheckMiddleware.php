@@ -21,7 +21,7 @@ class IPCheckMiddleware
          * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
          */
 
-        if (in_array($request->ip(), $this->blockedIps)) {
+        if (in_array($request->ip(), $this->blockedIPs)) {
             return response()->json(['error' => 'Blocked IP address', 'status' => 403], 403);
         }
 
