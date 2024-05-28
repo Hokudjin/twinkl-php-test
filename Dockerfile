@@ -1,11 +1,27 @@
 FROM php:8.3-apache
 
-RUN apt-get -y update \
-    && apt-get -y install git zlib1g-dev libzip-dev unzip \
-    && a2enmod rewrite \
-    && docker-php-ext-install mysqli pdo pdo_mysql zip \
-    && pecl install xdebug-3.3.1 \
-    && docker-php-ext-enable xdebug
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+RUN a2enmod rewrite
 
-WORKDIR /var/www
+COPY ./docker/apache/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf
+
+WORKDIR /var/www/html
+
+RUN apt-get update && apt-get install -y \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip \
+    git \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd 
+
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+COPY . /var/www/html
+
+RUN chown -R www-data:www-data /var/www/html
+
+EXPOSE 80
