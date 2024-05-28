@@ -8,6 +8,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class IPCheckMiddleware
 {
+
+    protected $blockedIPs = [
+        '127.0.0.1'
+    ];
+
     public function handle(Request $request, Closure $next): Response
     {
         /**
@@ -15,9 +20,8 @@ class IPCheckMiddleware
          *
          * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
          */
-        $blockedIPs = ['127.0.0.1'];
 
-        if (in_array($request->ip(), $blockedIPs)) {
+        if (in_array($request->ip(), $this->blockedIps)) {
             return response()->json(['error' => 'Blocked IP address', 'status' => 403], 403);
         }
 
